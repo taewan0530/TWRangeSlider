@@ -148,6 +148,8 @@ public class TWRangeSlider: UIControl {
         }
     }
     
+    @IBInspectable public var minTouchArea: CGFloat = 20
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -206,8 +208,12 @@ public class TWRangeSlider: UIControl {
         let location = touch.locationInView(self)
         moveTartget = nil
         
+        
         for view in self.subviews.reverse() {
-            if view.frame.contains(location) {
+            guard view.isKindOfClass(UIImageView) else { continue }
+            let w = min(0, CGRectGetWidth(view.frame) - minTouchArea)
+            let rect = view.frame.insetBy(dx: w/2, dy: w/2)
+            if rect.contains(location) {
                 moveTartget = view
                 touchX = view.convertPoint(location, fromView: self).x - CGRectGetWidth(view.bounds)/2
                 self.bringSubviewToFront(view)
