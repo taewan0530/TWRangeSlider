@@ -148,7 +148,7 @@ public class TWRangeSlider: UIControl {
         }
     }
     
-    @IBInspectable public var minTouchArea: CGFloat = 20
+    @IBInspectable public var minTouchArea: CGFloat = 28
     
     
     override init(frame: CGRect) {
@@ -174,7 +174,8 @@ public class TWRangeSlider: UIControl {
     
     override public func intrinsicContentSize() -> CGSize {
         let imageH = max(CGRectGetHeight(lowerThumbView.bounds), CGRectGetHeight(lowerThumbView.bounds))
-        return CGSizeMake(200, max((trackHeight*3)/2, imageH))
+        let h = max((trackHeight*3), imageH)
+        return CGSizeMake(200, max(h, minTouchArea))
     }
     
     func setup(){
@@ -207,7 +208,6 @@ public class TWRangeSlider: UIControl {
     override public func beginTrackingWithTouch(touch: UITouch, withEvent event: UIEvent?) -> Bool {
         let location = touch.locationInView(self)
         moveTartget = nil
-        
         
         for view in self.subviews.reverse() {
             guard view.isKindOfClass(UIImageView) else { continue }

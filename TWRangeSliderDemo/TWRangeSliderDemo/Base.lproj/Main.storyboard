@@ -17,8 +17,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SVo-WK-bVa" customClass="TWRangeSlider" customModule="TWRangeSliderDemo" customModuleProvider="target">
-                                <rect key="frame" x="140" y="288" width="320" height="24"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SVo-WK-bVa" customClass="TWRangeSlider" customModule="TWRangeSliderDemo" customModuleProvider="target">
+                                <rect key="frame" x="200" y="294" width="200" height="12"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="trackRadius">
@@ -33,7 +33,6 @@
                                     <userDefinedRuntimeAttribute type="color" keyPath="trackHighlightColor">
                                         <color key="value" red="0.27551786350622165" green="0.1185467471995042" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="image" keyPath="lowerThumbImage" value="circle"/>
                                     <userDefinedRuntimeAttribute type="number" keyPath="lowerValue">
                                         <real key="value" value="0.10000000000000001"/>
                                     </userDefinedRuntimeAttribute>
@@ -55,7 +54,4 @@
             <point key="canvasLocation" x="340" y="429"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="circle" width="24" height="24"/>
-    </resources>
 </document>
