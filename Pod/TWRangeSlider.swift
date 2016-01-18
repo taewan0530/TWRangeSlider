@@ -39,8 +39,21 @@ class TrackLayer: CALayer {
         }
     }
     
-    var lowerValue: Double = 0
-    var upperValue: Double = 0.5
+    var lowerValue: Double = 0 {
+        didSet {
+            if stepCount != 0 {
+                lowerValue = round(lowerValue*stepCount)/stepCount
+            }
+        }
+    }
+    var upperValue: Double = 0.5 {
+        didSet {
+            if stepCount != 0 {
+                upperValue = round(upperValue*stepCount)/stepCount
+            }
+        }
+    }
+    var stepCount: Double = 0
     
     override func drawInContext(ctx: CGContext) {
         let width = CGRectGetWidth(self.bounds)
@@ -76,6 +89,16 @@ public class TWRangeSlider: UIControl {
         return CGRectMake(lowerW/2, (h - trackHeight)/2, w - (lowerW + upperW)/2, trackHeight)
     }
     
+    @IBInspectable public var stepCount: Double {
+        get {
+            return trackLayer.stepCount
+        }
+        set(step) {
+            trackLayer.stepCount = step
+        }
+    }
+    
+    
     @IBInspectable public var trackRadius: CGFloat {
         get {
             return trackLayer.cornerRadius
@@ -110,6 +133,7 @@ public class TWRangeSlider: UIControl {
             lowerThumbView.tintColor = color
         }
     }
+    
     
     @IBInspectable public var lowerValue: Double {
         get {
@@ -208,9 +232,14 @@ public class TWRangeSlider: UIControl {
         lowerThumbView.frame.origin.y = (h - CGRectGetHeight(lowerThumbView.bounds))/2
         upperThumbView.frame.origin.y = (h - CGRectGetHeight(upperThumbView.bounds))/2
         
-        lowerThumbView.frame.origin.x = CGFloat(lowerValue) * tarckBounds.width + tarckBounds.origin.x - CGRectGetWidth(lowerThumbView.bounds)/2
-        upperThumbView.frame.origin.x = CGFloat(upperValue) * tarckBounds.width + tarckBounds.origin.x - CGRectGetWidth(upperThumbView.bounds)/2
+        //stepCount
         
+        
+        lowerThumbView.frame.origin.x = CGFloat(lowerValue) * tarckBounds.width
+        upperThumbView.frame.origin.x = CGFloat(upperValue) * tarckBounds.width
+        
+        lowerThumbView.frame.origin.x += tarckBounds.origin.x - CGRectGetWidth(lowerThumbView.bounds)/2
+        upperThumbView.frame.origin.x += tarckBounds.origin.x - CGRectGetWidth(lowerThumbView.bounds)/2
         CATransaction.commit()
     }
     
