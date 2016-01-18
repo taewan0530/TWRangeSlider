@@ -172,10 +172,20 @@ public class TWRangeSlider: UIControl {
         self.updateLayer()
     }
     
+    
+    public override func hitTest(point: CGPoint, withEvent event: UIEvent?) -> UIView? {
+        let rect = self.bounds.insetBy(dx: -minTouchArea/2, dy: -minTouchArea/2)
+        if rect.contains(point) {
+            return self
+        }
+        return super.hitTest(point, withEvent: event)
+    }
+    
     override public func intrinsicContentSize() -> CGSize {
         let imageH = max(CGRectGetHeight(lowerThumbView.bounds), CGRectGetHeight(lowerThumbView.bounds))
         let h = max((trackHeight*3), imageH)
-        return CGSizeMake(200, max(h, minTouchArea))
+        
+        return CGSizeMake(200, h)
     }
     
     func setup(){
@@ -190,7 +200,6 @@ public class TWRangeSlider: UIControl {
         let h = CGRectGetHeight(self.bounds)
         CATransaction.begin()
         CATransaction.setDisableActions(true)
-        
         
         let tarckBounds = self.trackBounds
         trackLayer.frame = tarckBounds
