@@ -134,13 +134,25 @@ public class TWRangeSlider: UIControl {
         }
     }
     
+    @IBInspectable public var single: Bool = false {
+        didSet {
+            if single {
+                lowerValue = 0
+            }
+            lowerThumbView.hidden = single
+        }
+    }
     
     @IBInspectable public var lowerValue: Double {
         get {
             return trackLayer.lowerValue
         }
         set(value) {
-            trackLayer.lowerValue = upperValue < value ? upperValue : value
+            if single {
+                trackLayer.lowerValue = 0
+            } else {
+                trackLayer.lowerValue = upperValue < value ? upperValue : value
+            }
             updateLayer()
             sendActionsForControlEvents(.ValueChanged)
         }
@@ -249,8 +261,13 @@ public class TWRangeSlider: UIControl {
         
         for view in self.subviews.reverse() {
             guard view.isKindOfClass(UIImageView) else { continue }
+            if single && view == lowerThumbView {
+                break
+            }
+            
             let w = min(0, CGRectGetWidth(view.frame) - minTouchArea)
             let rect = view.frame.insetBy(dx: w/2, dy: w/2)
+            
             if rect.contains(location) {
                 moveTartget = view
                 touchX = view.convertPoint(location, fromView: self).x - CGRectGetWidth(view.bounds)/2

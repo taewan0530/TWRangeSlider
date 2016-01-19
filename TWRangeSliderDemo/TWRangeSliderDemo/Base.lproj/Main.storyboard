@@ -39,6 +39,7 @@
                                     <userDefinedRuntimeAttribute type="number" keyPath="upperValue">
                                         <real key="value" value="0.80000000000000004"/>
                                     </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="single" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
